@@ -27,6 +27,19 @@ class Store:
                 active_products.append(product)
         return active_products
 
+    def order(self, shopping_list):
+        total_price = 0
+        for product, quantity in shopping_list:
+            if not product.is_active():
+                raise ValueError(f"Cannot order {product.name}, as it is inactive.")
+            if quantity > product.quantity:
+                raise ValueError(f"Cannot order {quantity} units of {product.name}; only {product.quantity} available.")
+            total_price += product.price * quantity
+            product.buy(quantity)
+
+        return f"Order cost : {total_price} dollars"
+
+
 bose = Products.Product("Bose QuietComfort Earbuds", price=250, quantity=500)
 mac = Products.Product("MacBook Air M2", price=1450, quantity=100)
 
@@ -35,5 +48,12 @@ store = Store([bose, mac])
 pixel = Products.Product("Google Pixel 7", price=500, quantity=250)
 store.add_product(pixel)
 
+product_list = [Products.Product("MacBook Air M2", price=1450, quantity=100),
+                Products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+                Products.Product("Google Pixel 7", price=500, quantity=250),
+               ]
+
+store = Store(product_list)
+products = store.get_all_products()
 print(store.get_total_quantity())
-print(store.get_all_products())
+print(store.order([(products[0], 1), (products[1], 2)]))
