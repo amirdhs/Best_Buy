@@ -1,23 +1,31 @@
 import Products
 import Store
 
-# setup initial stock of inventory
-product_list = [ Products.Product("MacBook Air M2", price=1450, quantity=100),
-                 Products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                 Products.Product("Google Pixel 7", price=500, quantity=250)
-               ]
+
+# Setup initial stock of inventory
+product_list = [
+    Products.Product("MacBook Air M2", price=1450, quantity=100),
+    Products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+    Products.Product("Google Pixel 7", price=500, quantity=250),
+]
 best_buy = Store.Store(product_list)
 
+
 def menu():
-    print("""
+    """Display the store menu options."""
+    print(
+        """
     ******** Store Menu *********
     1. List all products in store
     2. Show total amount in store
     3. Make an order
     4. Quit
-    """)
+    """
+    )
+
 
 def start():
+    """Main loop to handle user interactions with the store."""
     while True:
         menu()
         try:
@@ -40,8 +48,11 @@ def start():
             products = best_buy.get_all_products()
 
             # Display products with numbers
-            for idx, product in enumerate(products, start=1):
-                print(f"{idx}. {product.name}, Price: ${product.price}, Quantity: {product.quantity}")
+            for product_index, product in enumerate(products, start=1):
+                print(
+                    f"{product_index}. {product.name}, Price: ${product.price}, "
+                    f"Quantity: {product.quantity}"
+                )
 
             print("------")
             print("When you want to finish the order, enter an empty text.")
@@ -51,7 +62,7 @@ def start():
                 product_number = input("Which product do you want? ").strip()
 
                 # Check if the user wants to finish the order
-                if product_number == "":
+                if not product_number:
                     break
 
                 # Validate product number
@@ -59,7 +70,9 @@ def start():
                     product_number = int(product_number)
                     if 1 <= product_number <= len(products):
                         selected_product = products[product_number - 1]  # Get the product by index
-                        quantity = input(f"How many of '{selected_product.name}' do you want? ").strip()
+                        quantity = input(
+                            f"How many of '{selected_product.name}' do you want? "
+                        ).strip()
 
                         if quantity.isdigit():
                             quantity = int(quantity)
@@ -90,4 +103,3 @@ def start():
 
 if __name__ == "__main__":
     start()
-
