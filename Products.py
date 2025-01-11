@@ -40,7 +40,7 @@ class Product:
         print("the Product is Deactivate.")
 
     def show(self):
-        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
 
     def buy(self,quantity):
         if quantity > self.quantity:
