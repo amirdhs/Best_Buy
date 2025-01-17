@@ -36,7 +36,8 @@ class Store:
                 raise ValueError(f"Cannot order {quantity} units of {product.name}; only {product.quantity} available.")
             total_price += product.price * quantity
             product.buy(quantity)
-
+            if product.quantity == 0 :
+                product.deactivate()
         return f"{total_price} dollars"
 
 #
@@ -48,12 +49,13 @@ class Store:
 # pixel = Products.Product("Google Pixel 7", price=500, quantity=250)
 # store.add_product(pixel)
 #
-# product_list = [Products.Product("MacBook Air M2", price=1450, quantity=100),
-#                 Products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-#                 Products.Product("Google Pixel 7", price=500, quantity=250),
-#                ]
+product_list = [Products.Product("MacBook Air M2", price=1450, quantity=100),
+                 Products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+                 Products.Product("Google Pixel 7", price=500, quantity=250),
+                ]
 #
-# store = Store(product_list)
+store = Store(product_list)
 # products = store.get_all_products()
 # print(store.get_total_quantity())
 # print(store.order([(products[0], 1), (products[1], 2)]))
+

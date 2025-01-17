@@ -37,7 +37,7 @@ class Product:
 
     def deactivate(self):
         self.active = False
-        print("the Product is Deactivate.")
+        print("the Product now is Deactivate.")
 
     def show(self):
         print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
